@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+#map {
+  width: 100vw;
+  height: 100vh;
+}
+
+#info-panel {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 280px;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px #888;
+}
+
+#building-image {
+  width: 100%;
+}
+
+#reset-map {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 12px;
+  cursor: pointer;
+}
