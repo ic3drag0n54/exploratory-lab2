@@ -2,7 +2,7 @@
 
 import * as maplibregl from 'https://cdn.jsdelivr.net/npm/maplibre-gl@6.15.0/dist/maplibre-gl.mjs';
 
-// how-to pitch and bearing modified from deck.gl.
+// how-to add pitch and bearing modified from deck.gl.
 const map = new maplibregl.Map({
   container: 'mapid',
   center: [-123.13, 49.254],    // [longitude, latitude]
@@ -16,6 +16,7 @@ map.addControl(new maplibregl.NavigationControl(), 'top-right');
 
 const url = 'blocks.geojson';
 
+//legend color and items
 const countColour = ['step', ['get', 'count'],
                      '#ffffb2',
                      2, '#fed976',
@@ -24,10 +25,10 @@ const countColour = ['step', ['get', 'count'],
                      6, '#f03b20',
                      9, '#bd0026'];
 
-// height for permit count: 60 metres for each permit.
+// height for permit count: 60 metres for each permit. played around with numbers, liked this the most
 const countHeight = ['*', ['get', 'count'], 60];
 
-// Colour and height for permits per hectare.
+// permits per hectare count and color
 const densityColour = ['step', ['get', 'density'],
                        '#ffffb2',
                        0.5, '#fed976',
@@ -44,7 +45,7 @@ const blockPaint = {
   'fill-extrusion-opacity': 0.85
 };
 
-// code from trees, claude help as well. was having trouble formatting popup multiple lines
+// popup code mod from trees, claude help with how to make multiple lines on popup
 // e.features[0] is the block that was clicked.
 function onEachBlock(e) {
   const block = e.features[0].properties;
@@ -58,11 +59,11 @@ function onEachBlock(e) {
   popup.addTo(map);
 }
 
-// Permit count button: change the colour and height back to permit count.
 function showCount() {
   map.setPaintProperty('blocks-3d', 'fill-extrusion-color', countColour);
   map.setPaintProperty('blocks-3d', 'fill-extrusion-height', countHeight);
-  // The highlight layer has to change height too, or it would not match the blocks.
+
+  // highlight latyer change with buttons
   map.setPaintProperty('blocks-highlight', 'fill-extrusion-height', ['+', countHeight, 2]);
 
   document.getElementById('countLegend').style.display = 'block';
@@ -72,7 +73,7 @@ function showCount() {
   document.getElementById('densityButton').className = '';
 }
 
-// Permits / hectare button: change the colour and height to density.
+// permit hectare button change w density
 function showDensity() {
   map.setPaintProperty('blocks-3d', 'fill-extrusion-color', densityColour);
   map.setPaintProperty('blocks-3d', 'fill-extrusion-height', densityHeight);
@@ -103,7 +104,7 @@ map.on('load', function () {
     paint: blockPaint
   });
 
-  //claude assist with this as well. wanted some way to show the highlighted block when hovering. tried to code as much as i could, claude helped clean up code and figure out how to implement.
+  //wanted to show highlighted block when hovering over. tried to code as much as i could, claude helped clean up code and figure out how to implement.
   map.addLayer({
     id: 'blocks-highlight',
     type: 'fill-extrusion',
@@ -119,7 +120,7 @@ map.on('load', function () {
   map.on('click', 'blocks-3d', onEachBlock);
 
   // When the mouse moves over a block, show the hover popup there. Claude also (heavily) assisted with this.
-  //Wanted to show the hovering popup for quicker information. Was really struggling with it though. Claude helped me work through issues and assist with code writing.
+  //Wanted to show the hovering popup for more interactivity. Was really struggling with how to implement. Claude helped me work through issues and assist with code writing.
 map.on('mousemove', 'blocks-3d', function (e) {
   map.getCanvas().style.cursor = 'pointer';
   const block = e.features[0].properties;
