@@ -3,31 +3,73 @@ body {
   font-family: Arial, sans-serif;
 }
 
-#map {
-  width: 100vw;
-  height: 100vh;
-}
-
-#info-panel {
-  display: none;
+/* The map fills the whole window. */
+#mapid {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 280px;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px #888;
-}
-
-#building-image {
+  top: 0;
+  bottom: 0;
   width: 100%;
 }
 
-#reset-map {
+/* The white panel in the top-left corner. */
+#panel {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  padding: 12px;
+  top: 16px;
+  left: 16px;
+  width: 240px;
+  padding: 14px 16px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+#panel h1 {
+  font-size: 17px;
+  margin: 0 0 4px;
+}
+
+#subtitle {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: #555;
+}
+
+#panel button {
+  width: 48%;
+  padding: 7px 4px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  background: white;
   cursor: pointer;
+}
+
+/* The button that is switched on is red. */
+#panel button.active {
+  background: #bd0026;
+  border-color: #bd0026;
+  color: white;
+}
+
+.legend-row {
+  font-size: 12px;
+  margin: 3px 0;
+}
+
+/* The small coloured box beside each legend label. */
+.swatch {
+  display: inline-block;
+  width: 16px;
+  height: 12px;
+  margin-right: 8px;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+
+/* The popup. pre-line makes each \n in the popup text start a new line. */
+.maplibregl-popup-content {
+  font-size: 13px;
+  line-height: 1.4;
+  white-space: pre-line;
 }
